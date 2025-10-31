@@ -1,0 +1,87 @@
+
+.CrabTakeOver-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+    backdrop-filter: blur(6px);
+}
+
+.CrabTakeOver-popup-content {
+    background-color: #0d0d0d;
+    padding: 30px 25px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 0 20px rgba(0, 255, 170, 0.3);
+    font-family: 'Courier New', Courier, monospace;
+    color: #00ffcc;
+    animation: fadeIn 0.4s ease-in-out;
+    border: 1px solid #00ffcc;
+}
+
+.CrabTakeOver-popup-content h2 {
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+    color: #00ffcc;
+    text-align: center;
+    text-shadow: 0 0 5px #00ffcc;
+}
+
+.CrabTakeOver-popup-content p {
+    line-height: 1.6;
+    font-size: 0.95rem;
+    white-space: pre-line;
+}
+
+.CrabTakeOver-popup-content code {
+    background-color: #111;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #ff00aa;
+    font-weight: bold;
+}
+
+.CrabTakeOver-popup-content em {
+    color: #ffcc00;
+    font-style: italic;
+}
+
+.CrabTakeOver-popup-content strong {
+    color: #00ffcc;
+    font-weight: bold;
+    text-shadow: 0 0 3px #00ffcc;
+}
+
+.CrabTakeOver-popup-content button {
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 6px;
+    background-color: #00ffcc;
+    color: #0d0d0d;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.CrabTakeOver-popup-content button:hover {
+    background-color: #00ffaa;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

@@ -1,0 +1,67 @@
+
+    .user-form-page {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .user-form-page h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    }
+
+    .user-form-page form {
+    display: flex;
+    flex-direction: column;
+    }
+
+    .user-form-page label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    }
+
+    .user-form-page input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    }
+
+    .user-form-page button {
+    padding: 10px;
+    background-color: aquamarine;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    }
+
+    
+    .user-form-page .user-form-close-button {
+    display: block;
+    margin: 20px auto; /* centers the button horizontally */
+    padding: 10px 20px;
+    background-color: lightseagreen; /* custom color */
+    color: black;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    }
+
+    
+    .user-form-page button:hover {
+    background-color: lightblue;
+    }
+
+    .user-form-page .message {
+    margin-top: 10px;
+    text-align: center;
+    color: green;
+    }
+

@@ -1,0 +1,97 @@
+
+/* Overlay for the login popup */
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+}
+
+/* Content box for the login form */
+.login-content {
+    background-color: #ffffff;
+    padding: 30px 25px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.login-content h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+}
+
+.login-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-content label {
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #555;
+}
+
+.login-content input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.login-content input:focus {
+    border-color: #0078d4;
+    outline: none;
+}
+
+.login-content button {
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: aquamarine;
+    color: #333;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.login-content button:hover {
+    background-color: lightblue;
+}
+
+.login-content button[type="button"] {
+    background-color: lightseagreen;
+    color: #333;
+    margin-top: 5px;
+}
+
+.login-content button[type="button"]:hover {
+    background-color: lightblue;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+

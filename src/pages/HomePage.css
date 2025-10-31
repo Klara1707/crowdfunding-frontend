@@ -1,0 +1,201 @@
+
+
+
+#fundraiser-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 wider columns */
+    gap: 30px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    align-items: stretch; /* ensures equal height */
+}
+
+
+
+
+
+
+
+.hero-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #177e36, #00f2fe);
+    color: white;
+    padding: 20px 15px; /* reduced padding */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    gap: 20px; /* reduced gap */
+}
+
+.hero-image {
+    flex: 1;
+    max-width: 200px; /* smaller image */
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.hero-text {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.hero-text h1 {
+    font-size: 1.8rem; /* smaller heading */
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.hero-text p {
+    font-size: 1rem; /* smaller paragraph text */
+    line-height: 1.4;
+    margin: 0;
+}
+
+
+
+
+.fundraiser-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 400px; /* adjust based on your screen size */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    height: 320px; /* or try 300px for even shorter cards */
+    padding: 15px; /* was 20px */
+}
+
+
+.hero-image {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.hero-image:hover {
+    transform: scale(1.03);
+}
+
+
+.fundraiser-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Top section with image and text side-by-side */
+.card-header {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.card-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+.card-content h2 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+}
+
+.card-content p {
+    font-size: 0.9rem;
+    line-height: 1.3;
+}
+
+.card-progress {
+    margin: 10px 0;
+    padding: 8px;
+    font-size: 0.85rem;
+}
+
+
+/* Fundraiser progress box */
+.card-progress {
+    margin: 15px 0;
+    padding: 10px;
+    background-color: #f0f8f5;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #177e36;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Buttons section */
+
+.card-actions {
+    margin-top: auto; /* pushes buttons to the bottom */
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+
+.card-actions button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #177e36;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.card-actions button:hover {
+    background-color: #125f2a;
+}
+
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .hero-bar {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 10px; /* smaller padding on mobile */
+    }
+
+    .hero-text {
+        text-align: center;
+    }
+
+    .hero-image {
+        max-width: 70%; /* slightly smaller on mobile */
+    }
+}
+
+@media (max-width: 768px) {
+    #fundraiser-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+
+
