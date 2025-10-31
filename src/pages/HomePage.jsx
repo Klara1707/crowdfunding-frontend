@@ -6,13 +6,10 @@ import FundraiserCard from "../components/FundraiserCard";
 import DarkWebPop from "../components/DarkWebPop"; // ✅ Import the popup
 import "./HomePage.css";
 import useFundraisers from "../hooks/use-fundraisers";
+import PersonalCards from '../components/PersonalCards';
 
 // Images
 import spikyImage from "../components/spiky.jpg";
-import turboImage from "../components/turbo.jpg";
-import pointyImage from "../components/pointy.jpg";
-import lemmonImage from "../components/lemmon.jpg";
-import jackImage from "../components/jack.jpg";
 
 function HomePage() {
     const { fundraisers } = useFundraisers();
@@ -59,6 +56,7 @@ function HomePage() {
                 </div>
             </div>
             <NavBar />
+            <PersonalCards />
 
             {/* Fundraiser Grid */}
             <div id="fundraiser-list" className="fundraiser-list">
