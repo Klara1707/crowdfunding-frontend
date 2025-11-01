@@ -1,7 +1,10 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function CreateFundraiserPage() {
+    const navigate = useNavigate(); // ✅ move this inside the component
+
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -22,18 +25,18 @@ function CreateFundraiserPage() {
         e.preventDefault();
         const token = window.localStorage.getItem("token");
 
-        const response = await fetch("/api/fundraisers/", {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/fundraisers`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Token ${token}`,
+                Authorization: `Bearer ${token}`, // or Token if your API expects it
             },
             body: JSON.stringify(formData),
         });
 
         if (response.ok) {
             alert("Fundraiser created successfully!");
-            // Optionally redirect or clear form
+            navigate("/fundraisers"); // ✅ redirect to list
         } else {
             alert("Failed to create fundraiser.");
         }
@@ -75,3 +78,4 @@ function CreateFundraiserPage() {
 }
 
 export default CreateFundraiserPage;
+

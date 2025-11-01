@@ -1,5 +1,6 @@
-async function postUser(username, password, email) {
-    
+
+
+async function postUser({ username, password, email, first_name, last_name }) {
     try {
         const response = await fetch(`${import.meta.env.VITE_API_URL}/user/`, {
             method: "POST",
@@ -7,13 +8,17 @@ async function postUser(username, password, email) {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                username: username,
-                password: password, 
-                email: email,
+                username,
+                password,
+                email,
+                first_name,
+                last_name
             }),
         });
 
         if (!response.ok) {
+            const errorDetails = await response.json();
+            console.error("Server error details:", errorDetails);
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
@@ -26,3 +31,4 @@ async function postUser(username, password, email) {
 }
 
 export default postUser;
+

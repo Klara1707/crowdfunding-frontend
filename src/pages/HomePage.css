@@ -3,12 +3,13 @@
 
 #fundraiser-list {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 wider columns */
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
     gap: 30px;
-    max-width: 1200px;
-    margin: 40px auto;
+    max-width: 600px; /* narrower width to push it to the right */
+    margin: 0px 0 40px auto; /* auto left margin pushes it to the right */
+  
     padding: 0 20px;
-    align-items: stretch; /* ensures equal height */
+    align-items: stretch;
 }
 
 
@@ -27,6 +28,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     flex-wrap: wrap;
     gap: 20px; /* reduced gap */
+    margin-bottom: 0; /* Add this if needed */
 }
 
 .hero-image {

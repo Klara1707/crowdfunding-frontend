@@ -15,7 +15,6 @@ function ThankYouLoginPop({ onClose }) {
         </div>
         </div>
     );
-    }
+}
 
 export default ThankYouLoginPop;
-

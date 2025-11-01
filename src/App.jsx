@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import FundraiserDetail from "./pages/FundraiserDetail";
 import CreateFundraiserPage from "./pages/CreateFundraiserPage";
 import NavBar from "./components/NavBar";
+import FundraiserCard from "./pages/FundraiserCard"; // Adjust path as neede
 
 function App() {
     return (

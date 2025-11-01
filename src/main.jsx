@@ -1,3 +1,4 @@
+
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
@@ -7,16 +8,16 @@ import HomePage from "./pages/HomePage.jsx";
 import FundraiserPage from "./pages/FundraiserPage.jsx";
 import LoginPage from "./pages/LoginPages.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
-import UserForm from './pages/UserForm.jsx';
+import UserForm from "./pages/UserForm.jsx";
 
 // Components
 import { AuthProvider } from "./components/AuthProvider.jsx";
 import ContactFormPop from "./components/ContactFormPop.jsx";
 
-// Layout wrapper with NavBar
+// Layout wrapper with NavBar (optional)
 const Layout = () => (
   <>
-
+    {/* Add <NavBar /> here if you want it on all pages */}
     <Outlet />
   </>
 );
@@ -45,4 +46,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </AuthProvider>
   </React.StrictMode>
 );
-

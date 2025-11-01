@@ -62,3 +62,11 @@
         transform: scale(1);
     }
 }
+
+
+@media (max-width: 480px) {
+    .popup-content {
+        width: 90%;
+        padding: 20px;
+    }
+}

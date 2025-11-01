@@ -3,10 +3,10 @@ import React from "react";
 import "./CameraPop.css";
 import "./CrabTakeOver.jsx";
 
-function CameraPop({ card, onClose, onCrabTakeover }) {
+function CameraPop({ card, onClose, onCrabTakeOver }) {
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (onCrabTakeover) onCrabTakeover();
+        if (onCrabTakeOver) onCrabTakeOver();
         if (onClose) onClose();
     };
 

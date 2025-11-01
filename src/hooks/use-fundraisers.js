@@ -7,7 +7,8 @@ export default function useFundraisers() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState();
 
-    useEffect(() => {
+    const fetchFundraisers = () => {
+        setIsLoading(true);
         getFundraisers()
             .then((fundraisers) => {
                 setFundraisers(fundraisers);
@@ -17,7 +18,12 @@ export default function useFundraisers() {
                 setError(error);
                 setIsLoading(false);
             });
+    };
+
+    useEffect(() => {
+        fetchFundraisers();
     }, []);
 
-    return { fundraisers, isLoading, error };
+    return { fundraisers, isLoading, error, setFundraisers };
 }
+

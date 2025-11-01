@@ -15,25 +15,38 @@ function FundraiserPage() {
     }
 
     return (
-        <div>
+        <div className="fundraiser-page">
             <h2>{fundraiser.title}</h2>
-            <h3>Created at: {fundraiser.date_created}</h3>
-            <h3>Status: {fundraiser.is_open ? "Open" : "Closed"}</h3>
-            <h3>Owner: {fundraiser.owner}</h3>
+            <h3>Created at: {new Date(fundraiser.date_created).toLocaleDateString()}</h3>
+            <h3>Status: {fundraiser.is_open ? "Open to Supporters" : "Closed"}</h3>
+            <h3>Owner: {fundraiser.owner?.name ?? "Unknown"}</h3>
             <p>{fundraiser.description}</p>
-            <img
-                src={fundraiser.image}
-                alt="Fundraiser"
-                style={{ maxWidth: "100%", height: "auto" }}
-            />
+
+            {/* Crab Image Section */}
+            {fundraiser.crab?.image && (
+                <div className="fundraiser-crab-display">
+                    <img
+                        src={fundraiser.crab.image}
+                        alt={`Crab: ${fundraiser.crab.name}`}
+                        style={{ maxWidth: "300px", height: "auto", borderRadius: "8px" }}
+                    />
+                    <p><strong>Crab Friend:</strong> {fundraiser.crab.name}</p>
+                </div>
+            )}
+
             <h3>Target Amount: ${fundraiser.goal}</h3>
+
             <h3>Pledges:</h3>
             <ul>
-                {fundraiser.pledges.map((pledgeData, key) => (
-                    <li key={key}>
-                        ${pledgeData.amount} from {pledgeData.owner ?? "Anonymous"}
-                    </li>
-                ))}
+                {fundraiser.pledges?.length > 0 ? (
+                    fundraiser.pledges.map((pledgeData, index) => (
+                        <li key={index}>
+                            ${pledgeData.amount} from {pledgeData.owner?.name ?? "Anonymous"}
+                        </li>
+                    ))
+                ) : (
+                    <li>No pledges yet.</li>
+                )}
             </ul>
         </div>
     );

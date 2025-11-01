@@ -1,10 +1,15 @@
 
 import { Link } from "react-router-dom";
 import "./FundraiserCard.css";
+import pointyImage from "../components/pointy.jpg";
+import spikyImage from "../components/spiky.jpg";
+import turboImage from "../components/turbo.jpg";
+import lemmonImage from "../components/lemmon.jpg";
+import miniImage from "../components/jack.jpg";
 
 function FundraiserCard({ fundraiserData }) {
     const fundraiserLink = `/fundraiser/${fundraiserData.id ?? ""}`;
-    const imageSrc = fundraiserData.image || "https://placehold.co/300x200?text=No+Image";
+    const imageSrc = fundraiserData.crab?.image || "https://placehold.co/300x200?text=No+Image";
 
     return (
         <div className="fundraiser-card">
@@ -25,20 +30,17 @@ function FundraiserCard({ fundraiserData }) {
             </div>
 
             <div className="card-progress">
-                Raised ${fundraiserData.amountRaised} of ${fundraiserData.goal}
+                Raised ${fundraiserData.amountRaised ?? 0} of ${fundraiserData.goal}
             </div>
 
             <div className="card-actions">
                 <button>Donate</button>
-                <button>Share</button>
             </div>
         </div>
     );
 }
 
 export default FundraiserCard;
-
-
 
 
 
