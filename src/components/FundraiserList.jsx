@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import FundraiserCard from "./FundraiserCard";
 import CreateFundraiserModal from "./CreateFundraiserModal";
-import { useAuth } from "../hooks/use-auth";
+import { useAuth } from "../hooks/use-auth.js";
 
 function FundraiserList() {
     const { auth } = useAuth();

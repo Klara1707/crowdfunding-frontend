@@ -5,7 +5,7 @@ import ContactFormPop from "./ContactFormPop";
 import LoginForm from "./LoginForm";
 import UserForm from "../pages/UserForm";
 import "./NavBar.css";
-import { useAuth } from "/src/hooks/use-auth.js";
+import { useAuth } from "../hooks/use-auth.js";
 import CreateFundraiserModal from "../components/CreateFundraiserModal";
 
 function NavBar() {

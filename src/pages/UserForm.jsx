@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import postUsers from "../api/post-users";
 import ThankYouLoginPop from "../components/ThankYouLoginPop.jsx";
 
 const UserForm = ({ onClose }) => {
@@ -19,39 +18,50 @@ const UserForm = ({ onClose }) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/users/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                    // Removed Authorization header
+                },
+                body: JSON.stringify(formData),
+            });
 
-const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-        const response = await postUsers(formData);
-        setFormData({
-            username: '',
-            email: '',
-            password: '',
-            first_name: '',
-            last_name: ''
-        });
-        setShowThankYouLogin(true);
-        setErrorMessage('');
-        setTimeout(() => {
-            setShowThankYouLogin(false);
-            onClose();
-        }, 8000);
-    } catch (error) {
-        console.error("Error creating user:", error.details || error.message);
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw { details: errorData };
+            }
 
-        if (error.details?.username?.[0]?.includes("already exists")) {
-            setErrorMessage("User already exists. Please choose another username.");
-        } else if (error.details?.email?.[0]) {
-            setErrorMessage(`Email error: ${error.details.email[0]}`);
-        } else {
-            setErrorMessage("Something went wrong. Please try again.");
+            const newUser = await response.json();
+            setFormData({
+                username: '',
+                email: '',
+                password: '',
+                first_name: '',
+                last_name: ''
+            });
+            setShowThankYouLogin(true);
+            setErrorMessage('');
+            setTimeout(() => {
+                setShowThankYouLogin(false);
+                onClose();
+            }, 8000);
+        } catch (error) {
+            console.error("Error creating user:", error.details || error.message);
+
+            if (error.details?.username?.[0]?.includes("already exists")) {
+                setErrorMessage("User already exists. Please choose another username.");
+            } else if (error.details?.email?.[0]) {
+                setErrorMessage(`Email error: ${error.details.email[0]}`);
+            } else {
+                setErrorMessage("Something went wrong. Please try again.");
+            }
         }
-    }
-};
-
-
+    };
 
     return (
         <div className="popup-overlay">
@@ -116,5 +126,3 @@ const handleSubmit = async (e) => {
 };
 
 export default UserForm;
-
-

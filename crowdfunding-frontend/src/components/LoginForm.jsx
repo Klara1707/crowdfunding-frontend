@@ -1,13 +1,13 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "/src/hooks/use-auth.js";
+import { useAuth } from "./hooks/use-auth.js";
 import postLogin from "../api/post-login.js";
 import "./LoginForm.css";
 
 function LoginForm({ onClose }) {
     const navigate = useNavigate(); 
-    const { auth, setAuth } = useAuth();
+    const { Auth, setAuth } = useAuth();
 
     const [credentials, setCredentials] = useState({
         username: "",

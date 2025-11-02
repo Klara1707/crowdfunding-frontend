@@ -11,6 +11,7 @@ import FundraiserCard from "../components/FundraiserCard";
 import CreateFundraiserModal from "../components/CreateFundraiserModal"; // Make sure this path is correct
 import spikyImage from "../components/spiky.jpg";
 
+
 function HomePage() {
     const { fundraisers, setFundraisers } = useFundraisers();
     const [isLoggedIn, setIsLoggedIn] = useState(false);

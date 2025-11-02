@@ -5,7 +5,7 @@ import ContactFormPop from "./ContactFormPop";
 import LoginForm from "./LoginForm";
 import UserForm from "../pages/UserForm"; // Import the UserForm component
 import "./NavBar.css";
-import { useAuth } from "/src/hooks/use-auth.js";
+import { useAuth } from "./hooks/use-auth.js";
 
 function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);

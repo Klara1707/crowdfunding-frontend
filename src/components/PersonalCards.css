@@ -35,9 +35,7 @@
     transition: transform 0.2s;
 }
 
-.personal-card:hover {
-    transform: scale(1.02);
-}
+
 
 /* Image section of the card */
 .personal-card-image {

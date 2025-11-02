@@ -1,62 +1,44 @@
 
+// src/hooks/useUser.js
 import { useState, useEffect } from "react";
 
-function useUsers() {
-    const [users, setUsers] = useState([]);
+function useUser(userId, token = null) {
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Fetch users from API
-    const fetchUsers = async () => {
+    useEffect(() => {
+        if (!userId) return;
+
+        const fetchUser = async () => {
         setLoading(true);
         try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/`);
-        if (!response.ok) {
-            throw new Error("Failed to fetch users");
-        }
-        const data = await response.json();
-        setUsers(data);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/`, {
+            headers: token
+                ? {
+                    "Authorization": `Token ${token}`,
+                }
+                : {},
+            });
+
+            if (!response.ok) {
+            throw new Error(`Failed to fetch user with ID ${userId}`);
+            }
+
+            const data = await response.json();
+            setUser(data);
         } catch (err) {
-        setError(err.message);
+            setError(err.message);
         } finally {
-        setLoading(false);
+            setLoading(false);
         }
-    };
+        };
 
-    // Create a new user
-    const createUser = async (userData) => {
-        try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/users/`, {
-            method: "POST",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify(userData),
-        });
+        fetchUser();
+    }, [userId, token]);
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(JSON.stringify(errorData));
-        }
-
-        const newUser = await response.json();
-        setUsers((prev) => [...prev, newUser]);
-        } catch (err) {
-        setError(err.message);
-        }
-    };
-
-    useEffect(() => {
-        fetchUsers();
-    }, []);
-
-    return {
-        users,
-        loading,
-        error,
-        fetchUsers,
-        createUser,
-    };
+    return { user, loading, error };
 }
 
-export default useUsers;
+export default useUser;
+

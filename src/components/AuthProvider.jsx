@@ -1,19 +1,23 @@
-import { createContext, useState } from "react";
 
-    // Here we create the Context
-    export const AuthContext = createContext();
+// src/context/AuthProvider.jsx
+import { createContext, useState, useEffect } from "react";
 
-    // Here we create the component that will wrap our app, this means all it children can access the context using are hook.
-    export const AuthProvider = (props) => {
-    // Using a object for the state here, this way we can add more properties to the state later on like user id.
-    const [auth, setAuth] = useState({
-        // Here we initialize the context with the token from local storage, this way if the user refreshes the page we can still have the token in memory.
-        token: window.localStorage.getItem("token"),
-    });
+export const AuthContext = createContext();
+
+export function AuthProvider({ children }) {
+    const [auth, setAuth] = useState({ token: null });
+
+    useEffect(() => {
+        const storedToken = window.localStorage.getItem("token");
+        if (storedToken) {
+            setAuth({ token: storedToken });
+        }
+    }, []);
 
     return (
         <AuthContext.Provider value={{ auth, setAuth }}>
-        {props.children}
+            {children}
         </AuthContext.Provider>
     );
-    };
+}
+

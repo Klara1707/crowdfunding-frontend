@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import "./CreateFundraiserModal.css";
-import { useAuth } from "/src/hooks/use-auth.js";
+import { useAuth } from "../hooks/use-auth.js";
 import pointyImage from "../components/pointy.jpg";
 import spikyImage from "../components/spiky.jpg";
 import turboImage from "../components/turbo.jpg";
@@ -11,8 +11,6 @@ import miniImage from "../components/jack.jpg";
 function CreateFundraiserModal({ onClose, onCreated }) {
     const { auth } = useAuth();
     const token = auth?.token;
-    const today = new Date().toISOString().split("T")[0];
-    const ownerName = auth?.user?.name || "Unknown User";
 
     const crabOptions = [
         { name: "pointy", label: "Pointy", image: pointyImage },
@@ -32,13 +30,8 @@ function CreateFundraiserModal({ onClose, onCreated }) {
             title: formData.get("title"),
             description: formData.get("description"),
             goal: parseFloat(formData.get("goal")),
-            owner: ownerName,
-            date_created: today,
             is_open: formData.get("is_open") === "on",
-            crab: {
-                name: selectedCrab.name,
-                image: selectedCrab.image,
-            },
+            image: selectedCrab.image, // ✅ send image URL directly
         };
 
         try {
@@ -55,11 +48,9 @@ function CreateFundraiserModal({ onClose, onCreated }) {
                 throw new Error("Failed to create fundraiser");
             }
 
-
-const createdFundraiser = await response.json();
-if (onCreated) onCreated(createdFundraiser); // Pass the new fundraiser up
-
-            onClose(); // Close modal
+            const createdFundraiser = await response.json();
+            if (onCreated) onCreated(createdFundraiser);
+            onClose();
         } catch (error) {
             console.error("Error creating fundraiser:", error);
             alert("Something went wrong. Please try again.");
@@ -71,7 +62,7 @@ if (onCreated) onCreated(createdFundraiser); // Pass the new fundraiser up
             <div className="fundraiser-modal-content">
                 <h2>Create a New Fundraiser</h2>
 
-                {/* Crab Image + Info + Dropdown */}
+                {/* Crab Image + Dropdown */}
                 <div className="fundraiser-crab-section">
                     <img
                         src={selectedCrab.image}
@@ -114,14 +105,6 @@ if (onCreated) onCreated(createdFundraiser); // Pass the new fundraiser up
                     <label>
                         Target Amount:
                         <input type="number" name="goal" required />
-                    </label>
-                    <label>
-                        Owner:
-                        <input type="text" name="owner" value={ownerName} readOnly />
-                    </label>
-                    <label>
-                        Date Created:
-                        <input type="date" name="date_created" value={today} readOnly />
                     </label>
                     <label>
                         Open to Supporters:

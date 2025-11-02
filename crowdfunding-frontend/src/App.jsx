@@ -1,6 +1,6 @@
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./hooks/use-auth"; // 👈 Import your auth context
+import { AuthProvider } from "./hooks/use-Auth"; // 👈 Import your Auth context
 import HomePage from "./pages/HomePage";
 import FundraiserDetail from "./pages/FundraiserDetail";
 import CreateFundraiserPage from "./pages/CreateFundraiserPage";
