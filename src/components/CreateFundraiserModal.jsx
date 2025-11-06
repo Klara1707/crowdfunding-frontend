@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./CreateFundraiserModal.css";
 import { useAuth } from "../hooks/use-auth.js";
 import pointyImage from "../components/pointy.jpg";
@@ -7,53 +8,89 @@ import spikyImage from "../components/spiky.jpg";
 import turboImage from "../components/turbo.jpg";
 import lemmonImage from "../components/lemmon.jpg";
 import miniImage from "../components/jack.jpg";
+import postFundraiser from "../api/post-fundraiser.js";
+
+
+function getBase64FromImage(imgPath) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = "Anonymous";
+        img.src = imgPath;
+
+        img.onload = () => {
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            resolve(canvas.toDataURL("image/jpeg")); // or "image/png"
+        };
+
+        img.onerror = reject;
+    });
+}
+
 
 function CreateFundraiserModal({ onClose, onCreated }) {
     const { auth } = useAuth();
     const token = auth?.token;
+    const navigate = useNavigate();
 
-    const crabOptions = [
-        { name: "pointy", label: "Pointy", image: pointyImage },
-        { name: "spiky", label: "Spiky", image: spikyImage },
-        { name: "turbo", label: "Turbo", image: turboImage },
-        { name: "lemmon", label: "Lemmon", image: lemmonImage },
-        { name: "mini", label: "Mini", image: miniImage },
-    ];
 
-    const [selectedCrab, setSelectedCrab] = useState(crabOptions[0]);
+        const crabOptions = [
+        { name: "pointy", label: "Pointy", image: "https://klara1707.github.io/crab-images/" },
+        { name: "spiky", label: "Spiky", image: "https://klara1707.github.io/crab-images/" },
+        { name: "turbo", label: "Turbo", image: "https://klara1707.github.io/crab-images/" },
+        { name: "lemmon", label: "Lemmon", image: "https://klara1707.github.io/crab-images/" },
+        { name: "mini", label: "Mini", image: "https://klara1707.github.io/crab-images/" },
+        ];
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
 
-        const formData = new FormData(e.target);
-        const fundraiser = {
-            title: formData.get("title"),
-            description: formData.get("description"),
-            goal: parseFloat(formData.get("goal")),
-            is_open: formData.get("is_open") === "on",
-            image: selectedCrab.image, // ✅ send image URL directly
-        };
+    const [fundraiser, setFundraiser] = useState({
+        title: "",
+        description: "",
+        goal: "",
+        crab: crabOptions[0],
+    });
 
-        try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/fundraisers`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(fundraiser),
-            });
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFundraiser((prevFundraiser) => ({
+            ...prevFundraiser,
+            [name]: name === "goal" ? Number(value) : value,
+        }));
+    };
 
-            if (!response.ok) {
-                throw new Error("Failed to create fundraiser");
-            }
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-            const createdFundraiser = await response.json();
-            if (onCreated) onCreated(createdFundraiser);
-            onClose();
-        } catch (error) {
-            console.error("Error creating fundraiser:", error);
-            alert("Something went wrong. Please try again.");
+        if (fundraiser.title && fundraiser.description && fundraiser.goal && fundraiser.crab?.image) {
+            try {
+                const imageUrl = fundraiser.crab.image;
+
+
+const payload = {
+    title: fundraiser.title,
+    description: fundraiser.description,
+    goal: fundraiser.goal,
+    image: imageUrl, // ✅ Send image URL
+    is_open: true,
+    token,
+};
+
+
+                await postFundraiser(payload);
+                onCreated?.();
+                navigate("/");
+                onClose();
+            } 
+            catch (error) {
+    console.error("fundraiser fail:", error.message || error);
+    alert("Fundraiser creation failed. Check console for details.");
+}
+
+        } else {
+            alert("Missing required fields or crab image.");
         }
     };
 
@@ -65,21 +102,21 @@ function CreateFundraiserModal({ onClose, onCreated }) {
                 {/* Crab Image + Dropdown */}
                 <div className="fundraiser-crab-section">
                     <img
-                        src={selectedCrab.image}
-                        alt={selectedCrab.name}
+                        src={fundraiser.crab.image}
+                        alt={fundraiser.crab.name}
                         className="fundraiser-preview-image"
                     />
                     <div className="fundraiser-crab-info">
-                        <div className="fundraiser-name">{selectedCrab.label}</div>
+                        <div className="fundraiser-name">{fundraiser.crab.label}</div>
                         <div className="fundraiser-subtext">Selected Crab Friend</div>
                         <label>
                             Crab:
                             <select
                                 name="crab"
-                                value={selectedCrab.name}
+                                value={fundraiser.crab.name}
                                 onChange={(e) => {
                                     const crab = crabOptions.find(c => c.name === e.target.value);
-                                    setSelectedCrab(crab);
+                                    setFundraiser((prevFundraiser) => ({ ...prevFundraiser, crab }));
                                 }}
                             >
                                 {crabOptions.map((crab) => (
@@ -96,19 +133,15 @@ function CreateFundraiserModal({ onClose, onCreated }) {
                 <form onSubmit={handleSubmit}>
                     <label>
                         Title:
-                        <input type="text" name="title" required />
+                        <input type="text" name="title" required onChange={handleChange} />
                     </label>
                     <label>
                         Description:
-                        <textarea name="description" required />
+                        <textarea name="description" required onChange={handleChange} />
                     </label>
                     <label>
                         Target Amount:
-                        <input type="number" name="goal" required />
-                    </label>
-                    <label>
-                        Open to Supporters:
-                        <input type="checkbox" name="is_open" defaultChecked />
+                        <input type="number" name="goal" required onChange={handleChange} />
                     </label>
 
                     <button type="submit">Create</button>

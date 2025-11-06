@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import ThankYouLoginPop from "../components/ThankYouLoginPop.jsx";
 
-const UserForm = ({ onClose }) => {
+const UserForm = ({ onClose, onCreated }) => {
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -26,7 +26,6 @@ const UserForm = ({ onClose }) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
-                    // Removed Authorization header
                 },
                 body: JSON.stringify(formData),
             });
@@ -37,6 +36,12 @@ const UserForm = ({ onClose }) => {
             }
 
             const newUser = await response.json();
+
+            // ✅ Notify parent component
+            if (onCreated) {
+                onCreated(newUser);
+            }
+
             setFormData({
                 username: '',
                 email: '',
@@ -44,8 +49,10 @@ const UserForm = ({ onClose }) => {
                 first_name: '',
                 last_name: ''
             });
+
             setShowThankYouLogin(true);
             setErrorMessage('');
+
             setTimeout(() => {
                 setShowThankYouLogin(false);
                 onClose();

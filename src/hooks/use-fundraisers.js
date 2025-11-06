@@ -24,6 +24,13 @@ export default function useFundraisers() {
         fetchFundraisers();
     }, []);
 
-    return { fundraisers, isLoading, error, setFundraisers };
+    // ✅ Correct place for logging
+    useEffect(() => {
+        console.log("Fetched fundraisers:", fundraisers);
+    }, [fundraisers]);
+
+    return { fundraisers, isLoading, error, setFundraisers, fetchFundraisers };
 }
+
+
 

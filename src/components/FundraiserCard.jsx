@@ -12,24 +12,25 @@ function FundraiserCard({ fundraiserData }) {
 
     return (
         <div className="fundraiser-card">
-        <div className="card-header">
-            <div className="hero-image">
-            <Link to={fundraiserLink}>
-                <img
-                src={imageSrc}
-                alt={fundraiserData.title || "Fundraiser Image"}
-                className="card-image"
-                />
-            </Link>
+            <div className="card-header">
+                <div className="hero-image">
+                    <Link to={fundraiserLink}>
+                        <img
+                            src={imageSrc}
+                            alt={fundraiserData.title || "Fundraiser Image"}
+                            className="card-image"
+                        />
+                    </Link>
+                </div>
+                <div className="card-content">
+                    <h2>{fundraiserData.title}</h2>
+                    <p>{fundraiserData.description}</p>
+                </div>
             </div>
-            <div className="card-content">
-            <h2>{fundraiserData.title}</h2>
-            <p>{fundraiserData.description}</p>
-            </div>
-        </div>
         </div>
     );
 }
 
 export default FundraiserCard;
+
 

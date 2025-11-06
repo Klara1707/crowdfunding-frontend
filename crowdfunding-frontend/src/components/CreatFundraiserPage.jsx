@@ -68,10 +68,11 @@ function CreateFundraiserPage() {
                     <input type="checkbox" name="is_open" checked={formData.is_open} onChange={handleChange} />
                 </label>
                 <br />
-                <button type="submit">Create Fundraiser</button>
+                <button type="submit" onClick={() => console.log("Clicked!")}>Create Fundraiser</button>
             </form>
         </div>
     );
 }
 
 export default CreateFundraiserPage;
+

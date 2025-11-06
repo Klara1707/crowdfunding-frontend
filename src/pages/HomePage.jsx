@@ -6,18 +6,16 @@ import DarkWebPop from "../components/DarkWebPop";
 import "./HomePage.css";
 import useFundraisers from "../hooks/use-fundraisers";
 import PersonalCards from "../components/PersonalCards";
-import CrabTakeOver from "../components/CrabTakeOver";
 import FundraiserCard from "../components/FundraiserCard";
-import CreateFundraiserModal from "../components/CreateFundraiserModal"; // Make sure this path is correct
+import CreateFundraiserModal from "../components/CreateFundraiserModal";
 import spikyImage from "../components/spiky.jpg";
 
-
 function HomePage() {
-    const { fundraisers, setFundraisers } = useFundraisers();
+    const { fundraisers, fetchFundraisers } = useFundraisers(); // ✅ Ensure fetchFundraisers is exposed
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showLoginPopup, setShowLoginPopup] = useState(false);
     const [showDarkWebPop, setShowDarkWebPop] = useState(false);
-    const [showModal, setShowModal] = useState(false); // NEW: Modal visibility
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const token = window.localStorage.getItem("token");
@@ -34,23 +32,19 @@ function HomePage() {
         setShowDarkWebPop(true);
     };
 
-    const handleFundraiserCreated = (newFundraiser) => {
-        if (newFundraiser && newFundraiser.id) {
-            setFundraisers(prev => [...prev, newFundraiser]);
-        }
-    };
+
+const handleFundraiserCreated = async (newFundraiser) => {
+    console.log("New fundraiser created:", newFundraiser); // ✅ Add this line
+    if (newFundraiser && newFundraiser.id) {
+       await fetchFundraisers(); // ✅ Re-fetch from backend
+    }
+};
+
 
     const crabCards = [
         // Add crabCards data here if needed
     ];
-
-    const allFundraisers = [
-        ...new Map(
-            [...crabCards, ...fundraisers]
-                .filter(item => item && item.id)
-                .map(item => [item.id, item])
-        ).values()
-    ];
+const allFundraisers = [...crabCards, ...fundraisers]; // ✅ Simplified for testing
 
     return (
         <>
@@ -68,7 +62,6 @@ function HomePage() {
                         <br /><br />
                         So we’re calling on all hermit crab supporters: Help us build the ultimate crab haven—a place to grow, scuttle, and live happily ever after.
                     </p>
-
                 </div>
             </div>
 
@@ -85,7 +78,6 @@ function HomePage() {
                         <FundraiserCard key={fundraiserData.id} fundraiserData={fundraiserData} />
                     ))}
                 </div>
-
             </div>
 
             {showLoginPopup && (

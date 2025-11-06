@@ -64,6 +64,7 @@ function NavBar() {
                     )}
 
                     <button className="nav-button" onClick={openContactForm}>Contact</button>
+
                 </div>
             </nav>
 

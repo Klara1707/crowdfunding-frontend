@@ -7,11 +7,20 @@
     gap: 30px;
     max-width: 600px; /* narrower width to push it to the right */
     margin: 0px 0 40px auto; /* auto left margin pushes it to the right */
-  
     padding: 0 20px;
     align-items: stretch;
 }
 
+
+.fundraiser-cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 600px;
+    margin: 0px 0 40px auto;
+    padding: 0 20px;
+    align-items: stretch;
+}
 
 
 
@@ -197,6 +206,12 @@
 }
 
 
+
+@media (max-width: 768px) {
+    .fundraiser-cards-container {
+        grid-template-columns: 1fr;
+    }
+}
 
 
 
