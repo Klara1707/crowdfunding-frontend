@@ -4,7 +4,7 @@ function NavBar() {
     return (
         <div>
         <nav>
-            <Link to="/">icons</Link>
+            <Link to="/">icons-commit</Link>
             <Link to="/fundraiser">Fundraiser</Link>
         </nav>
         <Outlet />
